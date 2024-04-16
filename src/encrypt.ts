@@ -1,7 +1,9 @@
-function encrpyt (str: string) {
-  const strArr = str.split('');
+// ToDo: Replace CryptoJS with either crypto module
+// or custom implementation of AES-128
+import CryptoJS from 'crypto-js';
 
-  return strArr.map((character) => String.fromCharCode(character.charCodeAt(0) + 1)).join('');
+async function encrpyt (str: string, password: string) {
+  return CryptoJS.AES.encrypt(str, password).toString();
 }
 
 export default encrpyt;
