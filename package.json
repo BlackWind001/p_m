@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@inquirer/input": "^2.1.2",
+    "@inquirer/password": "^2.1.4",
     "crypto-js": "^4.2.0"
   }
 }
