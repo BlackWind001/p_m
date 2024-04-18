@@ -9,18 +9,24 @@ import encrpyt from './encrypt';
  * 3. Save the encrypted details to a file
  */
 async function setupTestPassword (dirPath: string) {
-  const password = await passwordInput({ message: 'Enter master password to complete the setup', mask: true });
-  const domain = 'example.com',
-    username = 'test',
-    testPass = 'test-password';
-  const encFileName = await encrpyt(domain, password);
-  const encData = await encrpyt(JSON.stringify({ username, password: testPass }), password);
-  const encFilePath = path.join(dirPath, encFileName);
-  const encFileDescriptor = await fsP.open(encFilePath, 'w');
+  let encFileDescriptor = null;
+  try {
+    const password = await passwordInput({ message: 'Enter master password to complete the setup', mask: true });
+    const domain = 'example.com',
+      username = 'test',
+      testPass = 'test-password';
+    const encFileName = await encrpyt(domain, password);
+    const encData = await encrpyt(JSON.stringify({ username, password: testPass }), password);
+    const encFilePath = path.join(dirPath, encFileName);
+    encFileDescriptor = await fsP.open(encFilePath, 'wx');
 
-  await fsP.writeFile(encFileDescriptor, encData);
+    await fsP.writeFile(encFileDescriptor, encData);
 
-  console.log('Setup test password in new git directory. ✔');
+    console.log('Setup test password in new git directory. ✔');
+  }
+  finally {
+    await encFileDescriptor?.close()
+  }
 }
 
 export default setupTestPassword;

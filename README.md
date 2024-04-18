@@ -11,5 +11,10 @@ The terminal CLI will enable him to easily view these passwords and update them 
 
 1. AES encryption ✔
 2. GIT integration ❌
-3. Setup new password directory and connect it to a remote origin ❌
+3. Setup new password directory ✔ and connect it to a remote origin ❌
 4. Setup existing git directory and allow the CLI to get passwords from said directory ❌
+
+### What am I doing currently?
+
+- Trying to setup a container environment where I will have to
+  login to save the git password.

@@ -5,6 +5,7 @@ import decrypt from './decrypt';
 import { program } from 'commander';
 import initializeNewPasswordGitRepo from './initializeNewPasswordGitRepo';
 import setupTestPassword from './setupTestPassword';
+import connectToRemoteOrigin from './connectToRemoteOrigin';
 
 async function encryptDecrypt () {
   const toEncrypt = await input({ message: 'Enter a string to encrpyt' });
@@ -30,8 +31,9 @@ async function main () {
   if (options.init) {
     const path = options.init;
 
-    initializeNewPasswordGitRepo(path);
-    setupTestPassword(path);
+    await initializeNewPasswordGitRepo(path);
+    await setupTestPassword(path);
+    await connectToRemoteOrigin(path);
   }
 }
 

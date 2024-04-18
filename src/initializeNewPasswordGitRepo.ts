@@ -24,6 +24,9 @@ async function checkDirValidity (path: string) {
  * 2. Use `git init` in that directory.
  * 3. Save the directory's location in a config file for later access.
  * 4. Write test for this.
+ * 
+ * ToDo: [UX] Initialize an empty directory even if the directory is not present.
+ * ToDo: [Safeguard] Check if the directory is already a GIT repo. If yes, display a warning to the user.
  */
 async function initializeNewPasswordGitRepo (path: string) {
   await checkDirValidity(path);
