@@ -10,7 +10,7 @@ RUN apk add git
 WORKDIR ${APP_BASE_PATH}
 COPY . .
 
-ARG PASSWORD_FOLDER_PATH=/usr/.pass
+ARG PASSWORD_FOLDER_PATH=/usr/pass
 
 RUN npm install
 RUN npm run tsc
