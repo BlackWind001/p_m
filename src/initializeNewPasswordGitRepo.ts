@@ -1,6 +1,17 @@
 import fsP from 'fs/promises';
 import simpleGit from 'simple-git';
 
+async function createDir (path: string) {
+  try {
+    await fsP.mkdir(path, { recursive: true });
+    console.log('Directory created successfully. ✔️');
+  }
+  catch (err) {
+    console.error('Directory creation failed. ❌');
+    throw new Error(`Error while creating directory ${path}` + err);
+  }
+}
+
 async function checkDirValidity (path: string) {
   try {
     await fsP.access(
@@ -14,8 +25,16 @@ async function checkDirValidity (path: string) {
       throw new Error(`${path} is not a directory`);
     }
   }
-  catch (err) {
-    throw new Error('Error while accessing the supplied path ' +  path +':\n' + err);
+  catch (err: any) {
+    if (err?.code === 'ENOENT') {
+      console.error(`Directory ${path} not found. ❌`);
+      console.log(`Creating directory ${path}`);
+
+      await createDir(path);
+    }
+    else {
+      throw new Error('Error while accessing the supplied path ' +  path +':\n' + err);
+    }
   }
 }
 
@@ -25,8 +44,7 @@ async function checkDirValidity (path: string) {
  * 3. Save the directory's location in a config file for later access.
  * 4. Write test for this.
  * 
- * ToDo: [UX] Initialize an empty directory even if the directory is not present.
- * ToDo: [Safeguard] Check if the directory is already a GIT repo. If yes, display a warning to the user.
+ * ToDo: [Safeguard] If the directory is not empty or is a git repository, throw error and fail.
  */
 async function initializeNewPasswordGitRepo (path: string) {
   await checkDirValidity(path);
