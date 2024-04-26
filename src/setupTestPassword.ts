@@ -17,7 +17,7 @@ async function setupTestPassword (dirPath: string) {
       testPass = 'test-password';
     const encFileName = await encrpyt(domain, password);
     const encData = await encrpyt(JSON.stringify({ username, password: testPass }), password);
-    const encFilePath = path.join(dirPath, encFileName);
+    const encFilePath = path.join(dirPath, encFileName); // ToDo: Persist encFilePath.
     encFileDescriptor = await fsP.open(encFilePath, 'wx');
 
     await fsP.writeFile(encFileDescriptor, encData);

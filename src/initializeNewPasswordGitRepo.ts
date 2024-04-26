@@ -1,5 +1,7 @@
 import fsP from 'fs/promises';
+import nodePath from 'path';
 import simpleGit from 'simple-git';
+import persistUserConfiguration from './persistUserConfiguration';
 
 async function createDir (path: string) {
   try {
@@ -53,10 +55,12 @@ async function initializeNewPasswordGitRepo (path: string) {
   const git = simpleGit(path, { binary: 'git' })
 
   await git.init();
-
   console.log('Initialize Git repo. ✔');
 
-  return Promise.resolve();
+  // ToDo: [Safeguard] Persist user configuration only at the end of the init process.
+  await persistUserConfiguration({
+    path: nodePath.normalize(nodePath.join(__dirname, path))
+  });
 }
 
 export default initializeNewPasswordGitRepo;
