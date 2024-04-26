@@ -1,5 +1,5 @@
 import fsP from 'fs/promises';
-import { CONFIG_FILE_PATH } from './constants';
+import { CONFIG_FILE_PATH, CONFIG_DIR_PATH } from './constants';
 
 type configType = {
   path: string
@@ -8,6 +8,18 @@ type configType = {
 async function persistUserConfiguration (config: configType) {
   let fileHandle;
   try {
+
+    try {
+      const stat = await fsP.stat(CONFIG_DIR_PATH);
+
+      if (!stat.isDirectory()) {
+        throw 'Not a directory';
+      }
+    }
+    catch (err) {
+      await fsP.mkdir(CONFIG_DIR_PATH);
+    }
+
     fileHandle = await fsP.open(CONFIG_FILE_PATH, fsP.constants.O_RDWR | fsP.constants.O_CREAT);
     const existingFileContents = await fsP.readFile(fileHandle, { encoding: 'utf-8' });
     const existingFileData = existingFileContents.length > 0 ? JSON.parse(existingFileContents) : {};
