@@ -22,8 +22,8 @@ async function encryptDecrypt () {
 
 async function main () {
   program
-    .option('-i, --init <path>', 'initialize a new git password directory');
-    // ToDo: Add new option to setup existing git password directory
+    .option('-i, --init <path>', 'initialize a new git password directory')
+    .option('-s, --setup <path>', 'initialize an existing git password directory');
 
   program.parse();
 
@@ -35,6 +35,14 @@ async function main () {
     await initializeNewPasswordGitRepo(path);
     await setupTestPassword(path);
     await connectToRemoteOrigin(path);
+  }
+
+  if (options.init && options.setup) {
+    throw 'Cannot use -i and -s at the same time. Either initialize a new git password directory or setup an existing one';
+  }
+
+  if (options.setup) {
+    const path = options.setup;
   }
 }
 
