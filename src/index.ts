@@ -23,6 +23,7 @@ async function encryptDecrypt () {
 async function main () {
   program
     .option('-i, --init <path>', 'initialize a new git password directory');
+    // ToDo: Add new option to setup existing git password directory
 
   program.parse();
 
