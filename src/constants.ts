@@ -4,8 +4,8 @@ import path from 'path';
 
 export const CONFIG_FILE_NAME = '.config';
 
-const POSIX_PATH = process.env.HOME || '~';
-const WINDOWS_PATH = process.env.LOCALAPPDATA || '';
+const POSIX_PATH = <string>process.env.HOME;
+const WINDOWS_PATH = <string>process.env.LOCALAPPDATA;
 const BASE_PLATFORM_SPECIFC_PATH = os.platform() === 'win32' ?
   WINDOWS_PATH :
   POSIX_PATH;
