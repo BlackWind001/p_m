@@ -6,6 +6,8 @@ import { program } from 'commander';
 import initializeNewPasswordGitRepo from './initializeNewPasswordGitRepo';
 import setupTestPassword from './setupTestPassword';
 import connectToRemoteOrigin from './connectToRemoteOrigin';
+import setupExistingPasswordGitRepo from './setupExistingPasswordGitRepo';
+import listPasswordsInGitRepo from './listPasswordsInGitRepo';
 
 async function encryptDecrypt () {
   const toEncrypt = await input({ message: 'Enter a string to encrpyt' });
@@ -24,6 +26,10 @@ async function main () {
   program
     .option('-i, --init <path>', 'initialize a new git password directory')
     .option('-s, --setup <path>', 'initialize an existing git password directory');
+  
+  program
+    .command('ls')
+    .action(listPasswordsInGitRepo);
 
   program.parse();
 
@@ -43,6 +49,8 @@ async function main () {
 
   if (options.setup) {
     const path = options.setup;
+
+    await setupExistingPasswordGitRepo(path);
   }
 }
 

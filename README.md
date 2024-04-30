@@ -10,9 +10,14 @@ The terminal CLI will enable him to easily view these passwords and update them 
 ### Features
 
 1. AES encryption ✔
-2. GIT integration ❌
-3. Setup new password directory ✔ and connect it to a remote origin ❌
-4. Setup existing git directory and allow the CLI to get passwords from said directory ❌
+2. GIT integration ✔
+3. Setup new password directory ✔
+4. Setup existing git directory 🚧 - Yet to test
+5. Add a new entry ❌
+6. List passwords from git directory 🚧 - Yet to test
+7. Change master password - changes all the encrypted passwords ❌
+8. Copy a password to clipboard ❌
+9. Connect it to a remote origin ❌
 
 ### What am I doing currently?
 
