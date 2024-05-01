@@ -7,6 +7,7 @@ import simpleGit from 'simple-git';
  * 3. Add the remote origin to the local repo.
  */
 async function connectToRemoteOrigin(path: string) {
+  let doNotConnect = true;
   const url = await input({
     message: 'Enter the remote origin URL for your GIT passwords directory.\n Hit enter if you do not want to connect to a remote origin',
     default: '',
@@ -16,6 +17,7 @@ async function connectToRemoteOrigin(path: string) {
       }
       try {
         new URL(remoteOriginURL);
+        doNotConnect = true;
         return true;
       }
       catch (err) {
@@ -24,6 +26,10 @@ async function connectToRemoteOrigin(path: string) {
       }
     }
   });
+
+  if (doNotConnect) {
+    return;
+  }
 
   const git = simpleGit(path, { binary: 'git' });
 

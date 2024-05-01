@@ -1,4 +1,5 @@
 import fsP from 'fs/promises';
+import crypto from 'crypto';
 import path from 'path';
 import passwordInput from '@inquirer/password';
 import encrpyt from './encrypt';
@@ -15,14 +16,18 @@ async function setupTestPassword (dirPath: string) {
     const domain = 'example.com',
       username = 'test',
       testPass = 'test-password';
-    const encFileName = await encrpyt(domain, password);
-    const encData = await encrpyt(JSON.stringify({ username, password: testPass }), password);
+    const encFileName = crypto.randomUUID();
+    const encData = await encrpyt(JSON.stringify({ domain, username, password: testPass }), password);
     const encFilePath = path.join(dirPath, encFileName); // ToDo: Persist encFilePath.
-    encFileDescriptor = await fsP.open(encFilePath, 'wx');
+    encFileDescriptor = await fsP.open(encFilePath, 'w+');
 
     await fsP.writeFile(encFileDescriptor, encData);
 
     console.log('Setup test password in new git directory. ✔');
+  }
+  catch (err) {
+    console.log('Error while setting up test password using the master password.', err);
+    throw err;
   }
   finally {
     await encFileDescriptor?.close()

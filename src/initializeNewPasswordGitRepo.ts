@@ -38,7 +38,7 @@ async function initializeNewPasswordGitRepo (path: string) {
 
   // ToDo: [Safeguard] Persist user configuration only at the end of the init process.
   await persistUserConfiguration({
-    path: nodePath.normalize(nodePath.join(__dirname, path))
+    path: nodePath.normalize(nodePath.resolve(path))
   });
 }
 
