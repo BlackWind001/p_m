@@ -19,7 +19,7 @@ async function setupTestPassword (dirPath: string) {
     const encFileName = crypto.randomUUID();
     const encData = await encrpyt(JSON.stringify({ domain, username, password: testPass }), password);
     const encFilePath = path.join(dirPath, encFileName); // ToDo: Persist encFilePath.
-    encFileDescriptor = await fsP.open(encFilePath, 'w+');
+    encFileDescriptor = await fsP.open(encFilePath, 'wx+');
 
     await fsP.writeFile(encFileDescriptor, encData);
 
