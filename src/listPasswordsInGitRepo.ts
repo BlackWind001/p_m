@@ -3,6 +3,9 @@ import passwordInput from '@inquirer/password';
 import { CONFIG_FILE_PATH } from './constants';
 import path from 'path';
 import decrypt from './decrypt';
+import _getGitDirectoryPath from './_getGitDirectoryPath';
+import _getGitDirectoryDirents from './_getGitDirectoryDirents';
+import _checkMasterPasswordValidity from './_checkMasterPasswordValidity';
 
 /**
  * 1. Check if there is a password directory persisted in the user configuration
@@ -13,40 +16,18 @@ import decrypt from './decrypt';
 export default async function listPasswordsInGitRepo () {
   let gitRepoPath;
   try {
-    const configFileHandle = await fsP.open(CONFIG_FILE_PATH, 'r');
-    const configFileContents = await fsP.readFile(configFileHandle, { encoding: 'utf-8' });
-    const config = JSON.parse(configFileContents);
-    
-    gitRepoPath = config.path;
-
-    if (!gitRepoPath) {
-      throw 'Git Directory path not found.'
-    }
+    gitRepoPath = await _getGitDirectoryPath();
   }
   catch (err) {
     throw new Error('Error while retrieving the initialized git directory path. If you have not already, please initialize a git directory using either p_m init or p_m setup\n' + err);
   }
 
   try {
-    const passwordDirectoryDirents = await fsP.readdir(gitRepoPath, { withFileTypes: true });
     const password = await passwordInput({ message: 'Enter the master password', mask: true });
+    const passwordDirectoryDirents = await _getGitDirectoryDirents();
     let encounteredErrorWhileOpeningFiles = false;
 
-    if (passwordDirectoryDirents.length === 0) {
-      console.log('Password directory is empty');
-      return;
-    }
-
-    // Remove the git directory from the dirents
-    const gitIndex = passwordDirectoryDirents.findIndex((dirent) => { return dirent.name === '.git' });
-    gitIndex > -1 && (passwordDirectoryDirents.splice(gitIndex, 1));
-
-    // Testing the password against one of the files to ensure that the password is correct.
-    const testFileName = passwordDirectoryDirents[0].name;
-
-    const testFileContents = await fsP.readFile(path.join(gitRepoPath, testFileName), { encoding: 'utf-8' });
-
-    JSON.parse(await decrypt(testFileContents, password));
+    await _checkMasterPasswordValidity(password);
 
     const contents = await Promise.allSettled(passwordDirectoryDirents.map((dirent) => {
       return fsP.readFile(path.join(gitRepoPath, dirent.name), { encoding: 'utf-8', flag: 'r' });
