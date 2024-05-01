@@ -24,8 +24,11 @@ export default async function setupExistingPasswordGitRepo (path: string) {
     await persistUserConfiguration({
       path: nodePath.normalize(nodePath.join(__dirname, path))
     });
+
+    console.log('Setup existing git password directory: ✔');
   }
   catch (err) {
-    throw new Error('Error while initializing existing git directory:');
+    console.log('Please ensuere the passed directory is a git repo.');
+    throw new Error('Error while initializing existing git directory:' + err);
   }
 }
