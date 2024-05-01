@@ -22,7 +22,7 @@ export default async function setupExistingPasswordGitRepo (path: string) {
     await checkDirValidity(nodePath.join(path, '.git'));
 
     await persistUserConfiguration({
-      path: nodePath.normalize(nodePath.join(__dirname, path))
+      path: nodePath.normalize(nodePath.resolve(path))
     });
 
     console.log('Setup existing git password directory: ✔');
