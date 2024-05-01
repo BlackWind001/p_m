@@ -8,6 +8,7 @@ import setupTestPassword from './setupTestPassword';
 import connectToRemoteOrigin from './connectToRemoteOrigin';
 import setupExistingPasswordGitRepo from './setupExistingPasswordGitRepo';
 import listPasswordsInGitRepo from './listPasswordsInGitRepo';
+import addNewPassword from './addNewPassword';
 
 async function encryptDecrypt () {
   const toEncrypt = await input({ message: 'Enter a string to encrpyt' });
@@ -25,24 +26,31 @@ async function encryptDecrypt () {
 async function main () {
 
   program
-    .command('init <path>')
-    .description('initialize a new git password directory')
-    .action(async (path) => {
-      await initializeNewPasswordGitRepo(path);
-      await setupTestPassword(path);
-      await connectToRemoteOrigin(path);
-    });
+  .command('init <path>')
+  .description('initialize a new git password directory')
+  .action(async (path) => {
+    await initializeNewPasswordGitRepo(path);
+    await setupTestPassword(path);
+    await connectToRemoteOrigin(path);
+  });
 
   program
-    .command('setup <path>')
-    .description('initialize an existing git password directory')
-    .action(async (path) => {
-      await setupExistingPasswordGitRepo(path);
-    })
+  .command('setup <path>')
+  .description('initialize an existing git password directory')
+  .action(async (path) => {
+    await setupExistingPasswordGitRepo(path);
+  });
   
   program
-    .command('ls')
-    .action(listPasswordsInGitRepo);
+  .command('add')
+  .description('add a new password to your stored passwords')
+  .action(async () => {
+    await addNewPassword();
+  })
+  
+  program
+  .command('ls')
+  .action(listPasswordsInGitRepo);
 
   program.parse();
 }
