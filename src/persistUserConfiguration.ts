@@ -28,6 +28,9 @@ async function persistUserConfiguration (config: configType) {
 
     await fileHandle.write(newFileContents, 0, 'utf-8');
   }
+  catch (err) {
+    throw new Error('Error while persisting details' + err);
+  }
   finally {
     fileHandle && await fileHandle.close();
   }
