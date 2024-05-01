@@ -25,3 +25,9 @@ Found a blocker:
 Potential solution:
 - Use a random alphanumberic string for the filename.
 - Add the domain details in the file itself.
+
+### Immediate  ToDos after implementing basic features
+1. Create stores for the following:
+  - The git directory path (once we validate that the path exists, it should be stored somewhere so it can be used for the entire session)
+  - The password file contents once we read them as part of the ls command or any other command (note that this store should react to changes like adding/deleting passwords)
+  - Master password (once the user enters their master password, he/she should not have to enter their password again throughout the session)
