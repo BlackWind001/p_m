@@ -12,9 +12,9 @@ The terminal CLI will enable him to easily view these passwords and update them 
 1. AES encryption ✔
 2. GIT integration ✔
 3. Setup new password directory ✔
-4. Setup existing git directory 🚧 - **Yet to test**
+4. Setup existing git directory ✔
 5. Add a new entry ❌
-6. List passwords from git directory 🚧 - **Yet to test**
+6. List passwords from git directory ✔
 7. Change master password - changes all the encrypted passwords ❌
 8. Copy a password to clipboard ❌
 9. Connect it to a remote origin ❌

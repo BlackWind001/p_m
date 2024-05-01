@@ -24,12 +24,13 @@ export default async function listPasswordsInGitRepo () {
     }
   }
   catch (err) {
-    throw new Error('Error while retrieving the initialized git directory path. If you have not already, please initialize a git directory using either -i or -s options\n' + err);
+    throw new Error('Error while retrieving the initialized git directory path. If you have not already, please initialize a git directory using either p_m init or p_m setup\n' + err);
   }
 
   try {
     const passwordDirectoryDirents = await fsP.readdir(gitRepoPath, { withFileTypes: true });
     const password = await passwordInput({ message: 'Enter the master password', mask: true });
+    let encounteredErrorWhileOpeningFiles = false;
 
     if (passwordDirectoryDirents.length === 0) {
       console.log('Password directory is empty');
@@ -37,18 +38,32 @@ export default async function listPasswordsInGitRepo () {
     }
 
     // Remove the git directory from the dirents
-    const gitIndex = passwordDirectoryDirents.findIndex((dirent) => { dirent.name === '.git' });
+    const gitIndex = passwordDirectoryDirents.findIndex((dirent) => { return dirent.name === '.git' });
     gitIndex > -1 && (passwordDirectoryDirents.splice(gitIndex, 1));
 
     // Testing the password against one of the files to ensure that the password is correct.
     const testFileName = passwordDirectoryDirents[0].name;
+
     const testFileContents = await fsP.readFile(path.join(gitRepoPath, testFileName), { encoding: 'utf-8' });
 
-    JSON.parse(testFileContents);
+    JSON.parse(await decrypt(testFileContents, password));
 
-    // Listing all the files
-    passwordDirectoryDirents.forEach((dirent) => {
-      console.log(decrypt(dirent.name, password));
+    const contents = await Promise.allSettled(passwordDirectoryDirents.map((dirent) => {
+      return fsP.readFile(path.join(gitRepoPath, dirent.name), { encoding: 'utf-8', flag: 'r' });
+    }));
+    
+    contents.forEach(async (data) => {
+      if (data.status === 'rejected' && !encounteredErrorWhileOpeningFiles) {
+        console.log('Encountered error(s) while opening password files. Resuming the rest of the ls operation.');
+        encounteredErrorWhileOpeningFiles = true;
+        return;
+      }
+
+      if (data.status === 'fulfilled') {
+        const decryptedData = await decrypt(data.value, password);
+        const parsedData = JSON.parse(decryptedData);
+        console.log(parsedData.domain);
+      }
     });
   }
   catch (err) {
