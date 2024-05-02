@@ -1,7 +1,7 @@
 import fsP from 'fs/promises';
 import passwordInput from '@inquirer/password';
-import { CONFIG_FILE_PATH } from './constants';
 import path from 'path';
+import Table from 'cli-table3';
 import decrypt from './decrypt';
 import _getGitDirectoryPath from './_getGitDirectoryPath';
 import _getGitDirectoryDirents from './_getGitDirectoryDirents';
@@ -25,6 +25,7 @@ export default async function listPasswordsInGitRepo () {
   try {
     const password = await passwordInput({ message: 'Enter the master password', mask: true });
     const passwordDirectoryDirents = await _getGitDirectoryDirents();
+    const table = new Table({ head: ['Domain', 'Username'] });
     let encounteredErrorWhileOpeningFiles = false;
 
     await _checkMasterPasswordValidity(password);
@@ -33,7 +34,7 @@ export default async function listPasswordsInGitRepo () {
       return fsP.readFile(path.join(gitRepoPath, dirent.name), { encoding: 'utf-8', flag: 'r' });
     }));
     
-    contents.forEach(async (data) => {
+    const promises = contents.map(async (data) => {
       if (data.status === 'rejected' && !encounteredErrorWhileOpeningFiles) {
         console.log('Encountered error(s) while opening password files. Resuming the rest of the ls operation.');
         encounteredErrorWhileOpeningFiles = true;
@@ -43,9 +44,12 @@ export default async function listPasswordsInGitRepo () {
       if (data.status === 'fulfilled') {
         const decryptedData = await decrypt(data.value, password);
         const parsedData = JSON.parse(decryptedData);
-        console.log(parsedData.domain);
+        table.push([parsedData.domain, parsedData.username]);
       }
     });
+
+    await Promise.allSettled(promises);
+    console.log(table.toString());
   }
   catch (err) {
     throw new Error('Error while decrypting the stored passwords. Check if you have entered the correct password\n' + err);
