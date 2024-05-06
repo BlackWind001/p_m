@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import path from 'path';
 import passwordInput from '@inquirer/password';
 import encrpyt from './encrypt';
+import stageAndCommitChanges from './utils/stageAndCommitChanges';
 
 /**
  * 1. Request user's master password.
@@ -32,6 +33,11 @@ async function setupTestPassword (dirPath: string) {
   finally {
     await encFileDescriptor?.close()
   }
+
+  await stageAndCommitChanges(dirPath, {
+    commitMsg: 'Initial commit. Added password for domain example.com',
+    errorMsg: 'Encountered error while committing test password'
+  });
 }
 
 export default setupTestPassword;
