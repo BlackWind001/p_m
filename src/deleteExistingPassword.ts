@@ -9,6 +9,7 @@ import _checkMasterPasswordValidity from './_checkMasterPasswordValidity';
 import decrypt from './decrypt';
 import { DecryptedPasswordType, PasswordDataType, PasswordFileReadFailureType, PasswordFileReadSuccessType } from './types';
 import _deletePasswordEntry from './_deletePasswordFile';
+import _getAllPasswordData from './_getAllPasswordData';
 
 /**
  * ToDo: [Readability] Restructure and clean-up this function to be more readable.
@@ -24,46 +25,8 @@ export default async function deleteExistingPassword () {
 
   try {
     const masterPassword = await passwordInput({ message: 'Enter the master password', mask: true });
-    const passwordDirectoryDirents = await _getGitDirectoryDirents();
-
-    await _checkMasterPasswordValidity(masterPassword);
-
     const domain = await input({ message: 'Enter the domain (ex: github.com || ex: My Github password)' });
-    const contents = await Promise.allSettled(passwordDirectoryDirents.map((dirent) => {
-      const filePath = path.join(gitRepoPath, dirent.name);
-      return fsP.readFile(
-        filePath, { encoding: 'utf-8', flag: 'r' }
-      ).then((data): PasswordFileReadSuccessType => {
-        return {
-          type: 'success',
-          filePath,
-          contents: data
-        }
-      }).catch((err) : PasswordFileReadFailureType => {
-        return {
-          type: 'failure',
-          filePath,
-          error: err
-        };
-      });
-    }));
-
-    const decryptedPasswordsData = await Promise.all(
-      contents
-      .filter((data) => data.status === 'fulfilled' && data.value.type === 'success')
-      .map(async (data) : Promise<PasswordDataType | undefined> => {
-        // Doing the check for status again because TS is complaining.
-        // ToDo: [TechDebt] Check how to remove this additional status check.
-        if (data.status === 'rejected' || data.value.type === 'failure') {
-          return;
-        }
-
-        const decryptedData = await decrypt(data.value.contents, masterPassword);
-        return {
-          filePath: data.value.filePath,
-          ...(JSON.parse(decryptedData) as DecryptedPasswordType)
-        };
-      }));
+    const decryptedPasswordsData = await _getAllPasswordData(masterPassword);
 
     const matchedPasswords = decryptedPasswordsData.filter((data) => {
       return data && data.domain.indexOf(domain) > -1;
@@ -99,6 +62,6 @@ export default async function deleteExistingPassword () {
     }
   }
   catch (err) {
-
+    throw new Error('Error while deleting password entry '+ err);
   }
 }
