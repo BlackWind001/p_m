@@ -9,6 +9,7 @@ import connectToRemoteOrigin from './connectToRemoteOrigin';
 import setupExistingPasswordGitRepo from './setupExistingPasswordGitRepo';
 import listPasswordsInGitRepo from './listPasswordsInGitRepo';
 import addNewPassword from './addNewPassword';
+import deleteExistingPassword from './deleteExistingPassword';
 
 async function encryptDecrypt () {
   const toEncrypt = await input({ message: 'Enter a string to encrpyt' });
@@ -43,10 +44,17 @@ async function main () {
   
   program
   .command('add')
-  .description('add a new password to your stored passwords')
+  .description('add a new password')
   .action(async () => {
     await addNewPassword();
-  })
+  });
+
+  program
+  .command('delete')
+  .description('delete an existing password')
+  .action(async () => {
+    await deleteExistingPassword();
+  });
   
   program
   .command('ls')
