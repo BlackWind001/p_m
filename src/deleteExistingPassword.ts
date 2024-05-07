@@ -1,15 +1,13 @@
 import Table from 'cli-table3';
-import fsP from 'fs/promises';
 import input from '@inquirer/input';
-import path from 'path';
 import passwordInput from '@inquirer/password';
 import _getGitDirectoryPath from "./_getGitDirectoryPath";
 import _getGitDirectoryDirents from './_getGitDirectoryDirents';
 import _checkMasterPasswordValidity from './_checkMasterPasswordValidity';
-import decrypt from './decrypt';
-import { DecryptedPasswordType, PasswordDataType, PasswordFileReadFailureType, PasswordFileReadSuccessType } from './types';
+import { PasswordDataType } from './types';
 import _deletePasswordEntry from './_deletePasswordFile';
 import _getAllPasswordData from './_getAllPasswordData';
+import _acceptMasterPassword from './_acceptMasterPassword';
 
 /**
  * ToDo: [Readability] Restructure and clean-up this function to be more readable.
@@ -24,7 +22,7 @@ export default async function deleteExistingPassword () {
   }
 
   try {
-    const masterPassword = await passwordInput({ message: 'Enter the master password', mask: true });
+    const masterPassword = await _acceptMasterPassword();
     const domain = await input({ message: 'Enter the domain (ex: github.com || ex: My Github password)' });
     const decryptedPasswordsData = await _getAllPasswordData(masterPassword);
 

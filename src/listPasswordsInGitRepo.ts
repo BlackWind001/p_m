@@ -6,8 +6,8 @@ import decrypt from './decrypt';
 import _getGitDirectoryPath from './_getGitDirectoryPath';
 import _getGitDirectoryDirents from './_getGitDirectoryDirents';
 import _checkMasterPasswordValidity from './_checkMasterPasswordValidity';
-import { DecryptedPasswordType } from './types';
 import _getAllPasswordData from './_getAllPasswordData';
+import _acceptMasterPassword from './_acceptMasterPassword';
 
 /**
  * 1. Check if there is a password directory persisted in the user configuration
@@ -25,7 +25,7 @@ export default async function listPasswordsInGitRepo () {
   }
 
   try {
-    const password = await passwordInput({ message: 'Enter the master password', mask: true });
+    const password = await _acceptMasterPassword();
     const allPasswordData = await _getAllPasswordData(password);
     const table = new Table({ head: ['Domain', 'Username'] });
 

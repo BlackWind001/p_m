@@ -7,9 +7,10 @@ import _checkMasterPasswordValidity from './_checkMasterPasswordValidity';
 import encrpyt from './encrypt';
 import _getGitDirectoryPath from './_getGitDirectoryPath';
 import stageAndCommitChanges from './utils/stageAndCommitChanges';
+import _acceptMasterPassword from './_acceptMasterPassword';
 
 export default async function addNewPassword () {
-  const masterPassword = await passwordInput({ message: 'Enter master password', mask: true });
+  const masterPassword = await _acceptMasterPassword();
   let gitDirectoryPath, domain;
 
   await _checkMasterPasswordValidity(masterPassword);
