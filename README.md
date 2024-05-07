@@ -14,7 +14,7 @@ The terminal CLI will enable him to easily view these passwords and update them 
 3. Setup new password directory ✔
 4. Setup existing git directory ✔
 5. Add a new entry ✔
-6. Delete an existing entry ❌
+6. Delete an existing entry ✔
 7. Update an existing entry ❌
 8. List passwords from git directory ✔
 9. Change master password - changes all the encrypted passwords ❌
@@ -39,3 +39,5 @@ Potential solution:
   - Check [this](https://dev.to/cloudx/how-to-package-a-node-app-with-their-dependencies-p4g) as well.
   - https://remusao.github.io/posts/packaging-nodejs-apps.html
   - Check the [pkg](https://www.npmjs.com/package/pkg) package
+3. When displaying domains and usernames, sort according to domains.
+4. Add a confirmation step in delete flow when the user enters the exact domain.
