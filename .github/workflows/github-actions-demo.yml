@@ -26,4 +26,4 @@ jobs:
         cache: 'npm'
     - run: npm i
     - run: npm run tsc
-    - run: npm run build
+    - run: npm run build -t node18
