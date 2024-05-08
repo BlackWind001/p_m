@@ -21,15 +21,6 @@ export default async function _updatePasswordEntry (
     username: newPasswordDetails.username,
     password: newPasswordDetails.password
   };
-  const isEntryUnchanged = Object.keys(newPasswordEntry).reduce((acc, key) => {
-    // @ts-ignore
-    return acc && (newPasswordEntry[key] === oldPasswordEntry[key]);
-  }, true);
-
-  if (isEntryUnchanged) {
-    console.error('Password entry was not updated. Skipping update');
-    return false;
-  }
 
   return await fsP.writeFile(
     newPasswordDetails.filePath,

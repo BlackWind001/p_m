@@ -66,13 +66,18 @@ export default async function updateExistingPassword () {
         password: updatedPassword
       };
 
-      const status = await _updatePasswordEntry(newPasswordEntry, entry, masterPassword);
-      if (status === false) {
-        console.log(`Password for domain ${entry.domain} not updated ❌`);
+      const isEntryUnchanged = Object.keys(newPasswordEntry).reduce((acc, key) => {
+        // @ts-ignore
+        return acc && (newPasswordEntry[key] === entry[key]);
+      }, true);
+
+      if (isEntryUnchanged) {
+        console.error(`Password for domain ${entry.domain} not updated - nothing to update ❌`);
+        return ;
       }
-      else {
-        console.log(`Updated password for domain ${entry.domain} ✔`); 
-      }
+
+      await _updatePasswordEntry(newPasswordEntry, entry, masterPassword);
+      console.log(`Updated password for domain ${entry.domain} ✔`); 
     }
   }
   catch (err) {
