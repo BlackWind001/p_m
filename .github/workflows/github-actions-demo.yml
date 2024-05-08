@@ -31,7 +31,8 @@ jobs:
       run: mkdir packaged-app
     - run: pkg -t node18 . -o packaged-app/pm
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pm
         path: ./packaged-app/
+        compression-level: 0
