@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "tsc": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "pkg ./build/index.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^18.11.8",
     "nodemon": "^3.1.0",
+    "pkg": "^5.8.1",
     "typescript": "^5.4.4"
   },
   "dependencies": {
