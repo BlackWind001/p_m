@@ -24,7 +24,7 @@ export default async function addNewPassword () {
     gitDirectoryPath = await _getGitDirectoryPath();
     const encFilePath = path.join(gitDirectoryPath, encFileName);
 
-    fsP.writeFile(encFilePath, encData, { encoding: 'utf-8', flag: 'wx+' });
+    await fsP.writeFile(encFilePath, encData, { encoding: 'utf-8', flag: 'wx+' });
 
     console.log('Added new password for domain', domain,'under username', username);
   }
