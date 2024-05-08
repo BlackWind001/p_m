@@ -25,5 +25,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm i
+    - run: npm install -g pkg@5.8.1
     - run: npm run tsc
-    - run: npm run build -t node18 .
+    - run: pkg -t node18 .
