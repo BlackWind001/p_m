@@ -22,11 +22,11 @@ export default async function deleteExistingPassword () {
 
   try {
     const masterPassword = await _acceptMasterPassword();
-    const domain = await input({ message: 'Enter the domain (ex: github.com || ex: My Github password)' });
+    const searchString = await input({ message: 'Enter the domain or username associated with the password' });
     const decryptedPasswordsData = await _getAllPasswordData(masterPassword);
 
     const matchedPasswords = decryptedPasswordsData.filter((data) => {
-      return data && data.domain.indexOf(domain) > -1;
+      return data && (data.domain.indexOf(searchString) > -1 || data.username.indexOf(searchString) > -1);
     });
 
     if (matchedPasswords.length === 0) {
@@ -44,16 +44,16 @@ export default async function deleteExistingPassword () {
         if (!match) {
           return;
         }
-        table.push([index, match.domain, match.password]);
+        table.push([index, match.domain, match.username]);
       });
       console.log(table.toString());
-      const selection = Number.parseInt(await input({ message: 'Enter the index of the password to delete' }));
+      const selectedIndex = Number.parseInt(await input({ message: 'Enter the index of the password to delete' }));
 
-      if (Number.isNaN(selection)) {
+      if (Number.isNaN(selectedIndex) || selectedIndex >= matchedPasswords.length) {
         console.error('Number entered was not valid');
         return;
       }
-      const entry = <PasswordDataType>matchedPasswords[selection];
+      const entry = <PasswordDataType>matchedPasswords[selectedIndex];
       await _deletePasswordEntry(entry.filePath);
       console.log(`Deleted password for domain ${entry.domain} ✔`);
     }

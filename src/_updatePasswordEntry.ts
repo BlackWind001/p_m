@@ -31,7 +31,6 @@ export default async function _updatePasswordEntry (
     return false;
   }
 
-  console.log(newPasswordDetails.filePath);
   return await fsP.writeFile(
     newPasswordDetails.filePath,
     await encrpyt(JSON.stringify(newPasswordEntry), masterPassword),

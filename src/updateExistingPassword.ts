@@ -37,7 +37,7 @@ export default async function updateExistingPassword () {
           if (!match) {
             return;
           }
-          table.push([index, match.domain, match.password]);
+          table.push([index, match.domain, match.username]);
         });
         console.log(table.toString());
         selectedIndex = Number.parseInt(await input({ message: 'Enter the index of the password to update' }));
