@@ -28,8 +28,10 @@ jobs:
     - run: npm install -g pkg@5.8.1
     - run: npm run tsc
     - name: Package the app
-      run: pkg -t node18 .
+      run: mkdir packaged-app
+    - run: pkg -t node18 . -o packaged-app/pm
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: p_m
+        name: pm
+        path: ./packaged-app/
