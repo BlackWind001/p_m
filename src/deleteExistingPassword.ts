@@ -1,6 +1,5 @@
 import Table from 'cli-table3';
 import input from '@inquirer/input';
-import passwordInput from '@inquirer/password';
 import _getGitDirectoryPath from "./_getGitDirectoryPath";
 import _getGitDirectoryDirents from './_getGitDirectoryDirents';
 import _checkMasterPasswordValidity from './_checkMasterPasswordValidity';

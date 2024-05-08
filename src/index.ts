@@ -10,6 +10,7 @@ import setupExistingPasswordGitRepo from './setupExistingPasswordGitRepo';
 import listPasswordsInGitRepo from './listPasswordsInGitRepo';
 import addNewPassword from './addNewPassword';
 import deleteExistingPassword from './deleteExistingPassword';
+import updateExistingPassword from './updateExistingPassword';
 
 async function encryptDecrypt () {
   const toEncrypt = await input({ message: 'Enter a string to encrpyt' });
@@ -55,10 +56,19 @@ async function main () {
   .action(async () => {
     await deleteExistingPassword();
   });
+
+  program
+  .command('update')
+  .description('update an existing password')
+  .action(async () => {
+    await updateExistingPassword();
+  })
   
   program
   .command('ls')
-  .action(listPasswordsInGitRepo);
+  .action(async () => {
+    await listPasswordsInGitRepo();
+  });
 
   program.parse();
 }
