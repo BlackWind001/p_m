@@ -12,6 +12,7 @@ import addNewPassword from './addNewPassword';
 import deleteExistingPassword from './deleteExistingPassword';
 import updateExistingPassword from './updateExistingPassword';
 import viewPassword from './viewPassword';
+import updateMasterPassword from './updateMasterPassword';
 
 async function encryptDecrypt () {
   const toEncrypt = await input({ message: 'Enter a string to encrpyt' });
@@ -60,7 +61,7 @@ async function main () {
 
   program
   .command('update')
-  .description('update an existing password')
+  .description('update existing username and/or password')
   .action(async () => {
     await updateExistingPassword();
   });
@@ -70,7 +71,21 @@ async function main () {
   .description('view specific password')
   .action(async (searchString) => {
     await viewPassword(searchString);
-  })
+  });
+
+  program
+  .command('update_master')
+  .description('update the master password')
+  .action(async () => {
+    await updateMasterPassword();
+  });
+
+  program
+  .command('um')
+  .description('shorthand for update_master')
+  .action(async () => {
+    await updateMasterPassword();
+  });
   
   program
   .command('ls')

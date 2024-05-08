@@ -22,7 +22,7 @@ export default async function _updatePasswordEntry (
     password: newPasswordDetails.password
   };
 
-  return await fsP.writeFile(
+  await fsP.writeFile(
     newPasswordDetails.filePath,
     await encrpyt(JSON.stringify(newPasswordEntry), masterPassword),
     { encoding: 'utf-8' }
