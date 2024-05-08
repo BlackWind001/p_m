@@ -17,7 +17,7 @@ The terminal CLI will enable him to easily view these passwords and update them 
 6. Delete an existing entry ✔
 7. Update an existing entry ✔
 8. List passwords from git directory ✔
-9. Change master password - changes all the encrypted passwords ❌
+9. Change master password - changes all the encrypted passwords ✔
 10. View selected password ✔
 11. Copy a password to clipboard ❌
 12. Connect it to a remote origin ❌
@@ -40,3 +40,8 @@ The terminal CLI will enable him to easily view these passwords and update them 
 7. Handle Ctrl+c interrupt better. Check [this](https://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js) for reference.
 8. Update interface so the user can continuously use the program without having to type the master password for every command. For example, when the user types `p_m` without any arguments, we take the user into an interactive mode that allows the user to input commands like `ls`, `add`, `help` etc. In this flow, the user only has to enter the master password once and then not worry about entering the master password again.
 9. Abstract out the flow where we filter the password list based on a search string. I am repeating the same logic in delete, update and view flows.
+10. Restructure files.
+
+![alt text](image.png)
+
+👆 This looks like a mess.
