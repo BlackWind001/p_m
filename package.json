@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "nodemon",
     "tsc": "tsc",
-    "build": "pkg ./build/index.js"
+    "build": "pkg"
   },
   "keywords": [],
   "author": "",
