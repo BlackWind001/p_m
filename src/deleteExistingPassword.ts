@@ -22,6 +22,9 @@ export default async function deleteExistingPassword () {
 
   try {
     const masterPassword = await _acceptMasterPassword();
+
+    await _checkMasterPasswordValidity(masterPassword);
+
     const searchString = await input({ message: 'Enter the domain or username associated with the password' });
     const decryptedPasswordsData = await _getAllPasswordData(masterPassword);
 
