@@ -13,7 +13,9 @@ export default async function stageAndCommitChanges (
     await git.commit(commitMsg);
   }
   catch (err) {
-    console.log(errorMsg, err);
-    throw err;
+    // Not throwing here on purpose.
+    // We do not want the user to have bad experience just cause the changes could not be committed.
+    // If they want, they can manually go into the password folder and commit the changes.
+    console.error(errorMsg, err);
   }
 }

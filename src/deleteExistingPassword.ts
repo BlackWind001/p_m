@@ -7,6 +7,7 @@ import { PasswordDataType } from './types';
 import _deletePasswordEntry from './_deletePasswordFile';
 import _getAllPasswordData from './_getAllPasswordData';
 import _acceptMasterPassword from './_acceptMasterPassword';
+import stageAndCommitChanges from './utils/stageAndCommitChanges';
 
 /**
  * ToDo: [Readability] Restructure and clean-up this function to be more readable.
@@ -59,6 +60,11 @@ export default async function deleteExistingPassword () {
       const entry = <PasswordDataType>matchedPasswords[selectedIndex];
       await _deletePasswordEntry(entry.filePath);
       console.log(`Deleted password for domain ${entry.domain} ✔`);
+
+      await stageAndCommitChanges(gitRepoPath, {
+        commitMsg: `Deleted password for domain ${entry.domain}`,
+        errorMsg: 'Encountered error while committing the newly deleted password. ❌'
+      });
     }
   }
   catch (err) {

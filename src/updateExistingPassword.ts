@@ -6,6 +6,7 @@ import _getGitDirectoryPath from './_getGitDirectoryPath';
 import _getAllPasswordData from './_getAllPasswordData';
 import { PasswordDataType } from './types';
 import _updatePasswordEntry from './_updatePasswordEntry';
+import stageAndCommitChanges from './utils/stageAndCommitChanges';
 
 export default async function updateExistingPassword () {
   let gitRepoPath;
@@ -49,6 +50,7 @@ export default async function updateExistingPassword () {
       }
 
       const entry = <PasswordDataType>matchedPasswords[selectedIndex];
+
       const updatedUsername = (
         await input({
           message: `Enter new username for domain "${entry.domain}". (Hit enter to keep the value unchanged)`
@@ -78,6 +80,11 @@ export default async function updateExistingPassword () {
 
       await _updatePasswordEntry(newPasswordEntry, entry, masterPassword);
       console.log(`Updated password for domain ${entry.domain} ✔`); 
+
+      await stageAndCommitChanges(gitRepoPath, {
+        commitMsg: `Updated password for domain ${entry.domain}`,
+        errorMsg: 'Encountered error while committing the newly updated password. ❌'
+      });
     }
   }
   catch (err) {
