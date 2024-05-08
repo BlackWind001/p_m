@@ -23,6 +23,10 @@ The terminal CLI will enable him to easily view these passwords and update them 
 12. Connect it to a remote origin ❌
 13. Allow user to change the remote origin after initial setup as well ❌
 
+### Bugs
+
+1. Discovered a bug where the delete flow does not commit changes. Need to check if this is specific to the delete flow or not.
+
 ### Immediate  ToDos after implementing basic features
 1. Create stores for the following:
   - The git directory path (once we validate that the path exists, it should be stored somewhere so it can be used for the entire session)
