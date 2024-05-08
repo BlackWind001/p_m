@@ -54,11 +54,11 @@ export default async function viewPassword (searchString = '') {
       }
       const selectedEntry = <PasswordDataType>matchedEntries[selectedIndex];
       passwordTable.push([selectedEntry.domain, selectedEntry.username, selectedEntry.password]);
+      console.log(passwordTable.toString());
     }
 
   }
   catch (err) {
     throw new Error('Error while retreiving the password ' + err);
   }
-  const masterPassword = _acceptMasterPassword();
 }
