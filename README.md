@@ -15,19 +15,13 @@ The terminal CLI will enable him to easily view these passwords and update them 
 4. Setup existing git directory ✔
 5. Add a new entry ✔
 6. Delete an existing entry ✔
-7. Update an existing entry ❌
+7. Update an existing entry ✔
 8. List passwords from git directory ✔
 9. Change master password - changes all the encrypted passwords ❌
-10. Copy a password to clipboard ❌
-11. Connect it to a remote origin ❌
-12. Allow user to change the remote origin after initial setup as well ❌
-
-Found a blocker:
-- When encrypting the domain to turn it into the filename, the encrypted filename can contain `/` character making it an invalid file name.
-
-Potential solution:
-- Use a random alphanumberic string for the filename.
-- Add the domain details in the file itself.
+10. View selected password ✔
+11. Copy a password to clipboard ❌
+12. Connect it to a remote origin ❌
+13. Allow user to change the remote origin after initial setup as well ❌
 
 ### Immediate  ToDos after implementing basic features
 1. Create stores for the following:
@@ -41,3 +35,8 @@ Potential solution:
   - Check the [pkg](https://www.npmjs.com/package/pkg) package
 3. When displaying domains and usernames, sort according to domains.
 4. Add a confirmation step in delete flow when the user enters the exact domain.
+5. Allow user to enter domain and username details as argument(s) while executing the command similar to how we allow search string to be passed for view flow.
+6. Handle errors with meaningful error messages instead of throwing the errors directly (floods the user's screen with unnecessary data).
+7. Handle Ctrl+c interrupt better. Check [this](https://stackoverflow.com/questions/10021373/what-is-the-windows-equivalent-of-process-onsigint-in-node-js) for reference.
+8. Update interface so the user can continuously use the program without having to type the master password for every command. For example, when the user types `p_m` without any arguments, we take the user into an interactive mode that allows the user to input commands like `ls`, `add`, `help` etc. In this flow, the user only has to enter the master password once and then not worry about entering the master password again.
+9. Abstract out the flow where we filter the password list based on a search string. I am repeating the same logic in delete, update and view flows.
