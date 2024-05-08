@@ -1,5 +1,5 @@
 import fsP from 'fs/promises'
-import { CONFIG_FILE_PATH } from './constants';
+import { CONFIG_FILE_PATH } from '../constants';
 
 export default async function _getGitDirectoryPath () {
   const configFileHandle = await fsP.open(CONFIG_FILE_PATH, 'r');

@@ -2,7 +2,7 @@ import fsP from 'fs/promises';
 import path from 'path';
 import _getGitDirectoryDirents from "./_getGitDirectoryDirents";
 import _getGitDirectoryPath from "./_getGitDirectoryPath";
-import decrypt from "./decrypt";
+import decrypt from '../decrypt';
 
 export default async function _checkMasterPasswordValidity (masterPassword: string) {
   const gitDirectoryPath = await _getGitDirectoryPath();

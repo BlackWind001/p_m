@@ -3,11 +3,11 @@ import passwordInput from '@inquirer/password';
 import path from 'path';
 import Table from 'cli-table3';
 import decrypt from './decrypt';
-import _getGitDirectoryPath from './_getGitDirectoryPath';
-import _getGitDirectoryDirents from './_getGitDirectoryDirents';
-import _checkMasterPasswordValidity from './_checkMasterPasswordValidity';
-import _getAllPasswordData from './_getAllPasswordData';
-import _acceptMasterPassword from './_acceptMasterPassword';
+import _getGitDirectoryPath from './helpers/_getGitDirectoryPath';
+import _getGitDirectoryDirents from './helpers/_getGitDirectoryDirents';
+import _checkMasterPasswordValidity from './helpers/_checkMasterPasswordValidity';
+import _getAllPasswordData from './helpers/_getAllPasswordData';
+import _acceptMasterPassword from './helpers/_acceptMasterPassword';
 
 /**
  * 1. Check if there is a password directory persisted in the user configuration

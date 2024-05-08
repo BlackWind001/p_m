@@ -3,11 +3,11 @@ import fsP from 'fs/promises';
 import path from 'path';
 import input from '@inquirer/input';
 import passwordInput from '@inquirer/password';
-import _checkMasterPasswordValidity from './_checkMasterPasswordValidity';
+import _checkMasterPasswordValidity from './helpers/_checkMasterPasswordValidity';
 import encrpyt from './encrypt';
-import _getGitDirectoryPath from './_getGitDirectoryPath';
+import _getGitDirectoryPath from './helpers/_getGitDirectoryPath';
 import stageAndCommitChanges from './utils/stageAndCommitChanges';
-import _acceptMasterPassword from './_acceptMasterPassword';
+import _acceptMasterPassword from './helpers/_acceptMasterPassword';
 
 export default async function addNewPassword () {
   const masterPassword = await _acceptMasterPassword();

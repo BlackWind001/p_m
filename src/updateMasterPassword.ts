@@ -1,9 +1,9 @@
 import passwordInput from '@inquirer/password';
-import _acceptMasterPassword from "./_acceptMasterPassword";
-import _checkMasterPasswordValidity from "./_checkMasterPasswordValidity";
-import _getGitDirectoryPath from "./_getGitDirectoryPath";
-import _getAllPasswordData from './_getAllPasswordData';
-import _updatePasswordEntry from './_updatePasswordEntry';
+import _acceptMasterPassword from "./helpers/_acceptMasterPassword";
+import _checkMasterPasswordValidity from "./helpers/_checkMasterPasswordValidity";
+import _getGitDirectoryPath from "./helpers/_getGitDirectoryPath";
+import _getAllPasswordData from './helpers/_getAllPasswordData';
+import _updatePasswordEntry from './helpers/_updatePasswordEntry';
 import stageAndCommitChanges from './utils/stageAndCommitChanges';
 import revertLocalChanges from './utils/revertLocalChanges';
 

@@ -1,8 +1,8 @@
 import Table from 'cli-table3';
 import input from '@inquirer/input';
-import _acceptMasterPassword from "./_acceptMasterPassword";
-import _getGitDirectoryPath from "./_getGitDirectoryPath";
-import _getAllPasswordData from './_getAllPasswordData';
+import _acceptMasterPassword from "./helpers/_acceptMasterPassword";
+import _getGitDirectoryPath from "./helpers/_getGitDirectoryPath";
+import _getAllPasswordData from './helpers/_getAllPasswordData';
 import { PasswordDataType } from './types';
 
 export default async function viewPassword (searchString = '') {

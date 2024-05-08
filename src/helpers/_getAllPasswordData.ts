@@ -3,8 +3,8 @@ import path from "path";
 import _checkMasterPasswordValidity from "./_checkMasterPasswordValidity";
 import _getGitDirectoryDirents from "./_getGitDirectoryDirents";
 import _getGitDirectoryPath from "./_getGitDirectoryPath";
-import { DecryptedPasswordType, PasswordDataType, PasswordFileReadFailureType, PasswordFileReadSuccessType } from './types';
-import decrypt from './decrypt';
+import { DecryptedPasswordType, PasswordDataType, PasswordFileReadFailureType, PasswordFileReadSuccessType } from '../types';
+import decrypt from '../decrypt';
 
 export default async function _getAllPasswordData (masterPassword: string): Promise<PasswordDataType[]> {
   let gitRepoPath, passwordDirectoryDirents;
