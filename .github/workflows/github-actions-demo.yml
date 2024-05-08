@@ -27,4 +27,9 @@ jobs:
     - run: npm i
     - run: npm install -g pkg@5.8.1
     - run: npm run tsc
-    - run: pkg -t node18 .
+    - name: Package the app
+      run: pkg -t node18 .
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: p_m
