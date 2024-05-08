@@ -2,7 +2,7 @@ import fsP from 'fs/promises';
 import passwordInput from '@inquirer/password';
 import path from 'path';
 import Table from 'cli-table3';
-import decrypt from './decrypt';
+import decrypt from './utils/decrypt';
 import _getGitDirectoryPath from './helpers/_getGitDirectoryPath';
 import _getGitDirectoryDirents from './helpers/_getGitDirectoryDirents';
 import _checkMasterPasswordValidity from './helpers/_checkMasterPasswordValidity';

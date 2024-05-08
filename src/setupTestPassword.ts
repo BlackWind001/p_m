@@ -2,7 +2,7 @@ import fsP from 'fs/promises';
 import crypto from 'crypto';
 import path from 'path';
 import passwordInput from '@inquirer/password';
-import encrpyt from './encrypt';
+import encrpyt from './utils/encrypt';
 import stageAndCommitChanges from './utils/stageAndCommitChanges';
 
 /**

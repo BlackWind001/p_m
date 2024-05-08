@@ -1,5 +1,5 @@
 import fsP from 'fs/promises';
-import encrpyt from '../encrypt';
+import encrpyt from '../utils/encrypt';
 import { DecryptedPasswordType, PasswordDataType } from "../types";
 
 export default async function _updatePasswordEntry (

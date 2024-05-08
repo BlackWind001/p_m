@@ -4,7 +4,7 @@ import path from 'path';
 import input from '@inquirer/input';
 import passwordInput from '@inquirer/password';
 import _checkMasterPasswordValidity from './helpers/_checkMasterPasswordValidity';
-import encrpyt from './encrypt';
+import encrpyt from './utils/encrypt';
 import _getGitDirectoryPath from './helpers/_getGitDirectoryPath';
 import stageAndCommitChanges from './utils/stageAndCommitChanges';
 import _acceptMasterPassword from './helpers/_acceptMasterPassword';
