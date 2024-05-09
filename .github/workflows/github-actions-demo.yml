@@ -43,6 +43,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
+        upload_url: ${{ steps.create-new-release.outputs.upload_url }}
         asset_path: ./packaged-app/pm-linux-arm64
         asset_name: pm-linux-arm64-v${{ github.run_number }}
         asset_type: application/x-executable
