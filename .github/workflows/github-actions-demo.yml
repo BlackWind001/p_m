@@ -37,7 +37,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.run_number }}
-        release_name: ${{ github.run_number }}
+        release_name: release-${{ github.run_number }}
     - name: Upload Linux ARM 64
       uses: actions/upload-release-asset@v1
       env:
