@@ -9,8 +9,7 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "tsc": "tsc",
-    "build": "pkg"
+    "tsc": "tsc"
   },
   "keywords": [],
   "author": "",
