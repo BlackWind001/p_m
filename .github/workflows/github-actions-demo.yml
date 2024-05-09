@@ -38,7 +38,7 @@ jobs:
       with:
         tag_name: ${{ github.run_number }}
         release_name: ${{ github.run_number }}
-    - name: Upload release assets
+    - name: Upload Linux ARM 64
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -46,4 +46,49 @@ jobs:
         upload_url: ${{ steps.create-new-release.outputs.upload_url }}
         asset_path: ./packaged-app/pm-linux-arm64
         asset_name: pm-linux-arm64-v${{ github.run_number }}
+        asset_content_type: application/x-executable
+    - name: Upload Linux x64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+        asset_path: ./packaged-app/pm-linux-x64
+        asset_name: pm-linux-x64-v${{ github.run_number }}
+        asset_content_type: application/x-executable
+    - name: Upload Mac ARM 64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+        asset_path: ./packaged-app/pm-macos-arm64
+        asset_name: pm-macos-arm64-v${{ github.run_number }}
+        asset_content_type: application/x-executable
+    - name: Upload Mac x64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+        asset_path: ./packaged-app/pm-macos-x64
+        asset_name: pm-macos-x64-v${{ github.run_number }}
+        asset_content_type: application/x-executable
+    - name: Upload Win ARM 64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+        asset_path: ./packaged-app/pm-win-arm64
+        asset_name: pm-win-arm64-v${{ github.run_number }}.exe
+        asset_content_type: application/x-executable
+    - name: Upload Win x64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-new-release.outputs.upload_url }}
+        asset_path: ./packaged-app/pm-win-x64
+        asset_name: pm-win-x64-v${{ github.run_number }}.exe
         asset_content_type: application/x-executable
