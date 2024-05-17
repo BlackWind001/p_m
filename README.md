@@ -23,6 +23,10 @@ The terminal CLI will enable him to easily view these passwords and update them 
 12. Connect it to a remote origin ❌
 13. Allow user to change the remote origin after initial setup as well ❌
 
+### ToDo
+1. Check the `init` command when it persists the password data as JSON. I am facing errors when I run the init command the first time.
+2. Add information in README about the `p_m/.config` file that is created by the process and how it can be deleted or fixed in case of errors.
+
 ### Screenshots
 1. Basic help message that lists all available options in pm
 ![Help message for pm](assets/1_help.png)
